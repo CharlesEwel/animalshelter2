@@ -1,0 +1,20 @@
+<h1>Add a new animal</h1>
+<form action="/animals/new" method="post">
+  <label for="animal-name">Animal Name:</label>
+  <input id="animal-name" name="animal-name" type="text">
+  <label for="animal-gender">Animal Gender:</label>
+  <input id="animal-gender" name="animal-gender" type="text">
+  <label for="animal-breed">Animal Breed:</label>
+  <input id="animal-breed" name="animal-breed" type="text">
+  <label for="animal-admittance-date">Animal admittance date:</label>
+  <input id="animal-admittance-date" name="animal-admittance-date" type="date">
+  <select name="type-id">
+    @foreach (var type in Model)
+    {
+      <option value="@type.GetId()">@type.GetType()</option>
+    }
+  </select>
+  <button type="submit">Add new animal</button>
+</form>
+<p><a href="/">Back home</a></p>
+<p><a href="/animals">View all animals</a></p>
