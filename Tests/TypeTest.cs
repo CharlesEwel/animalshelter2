@@ -75,5 +75,22 @@ namespace AnimalShelter.Objects
       //Assert
       Assert.Equal(testType, foundType);
     }
+    [Fact]
+    public void Test_Update_UpdatesTypeInDatabase()
+    {
+      //Arrange
+      string name = "Aardvark";
+      Type testType = new Type(name);
+      testType.Save();
+      string newName = "Badger";
+
+      //Act
+      testType.Update(newName);
+
+      string result = testType.GetType();
+
+      //Assert
+      Assert.Equal(newName, result);
+    }
   }
 }

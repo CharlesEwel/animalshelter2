@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System;
 
 namespace AnimalShelter.Objects
 {
@@ -130,6 +129,41 @@ namespace AnimalShelter.Objects
         conn.Close();
       }
       return foundType;
+    }
+    public void Update(string newName)
+    {
+      SqlConnection conn = DB.Connection();
+      SqlDataReader rdr;
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("UPDATE types SET animal_type = @NewName OUTPUT INSERTED.animal_type WHERE id = @TypeId;", conn);
+
+      SqlParameter newNameParameter = new SqlParameter();
+      newNameParameter.ParameterName = "@NewName";
+      newNameParameter.Value = newName;
+      cmd.Parameters.Add(newNameParameter);
+
+
+      SqlParameter typeIdParameter = new SqlParameter();
+      typeIdParameter.ParameterName = "@TypeId";
+      typeIdParameter.Value = this.GetId();
+      cmd.Parameters.Add(typeIdParameter);
+      rdr = cmd.ExecuteReader();
+
+      while(rdr.Read())
+      {
+        this._animalType = rdr.GetString(0);
+      }
+
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+
+      if (conn != null)
+      {
+        conn.Close();
+      }
     }
     public static void DeleteAll()
     {

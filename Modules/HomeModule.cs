@@ -44,10 +44,20 @@ namespace AnimalShelter
       Get["/types/{id}"] = parameters => {
         Dictionary<string, object> model = new Dictionary<string, object>();
         var SelectedType = Type.Find(parameters.id);
-        var TypeAnimals = SelectedType.GetAll();
+        var TypeAnimals = Animal.GetAll("id");
         model.Add("types", SelectedType);
         model.Add("animals", TypeAnimals);
         return View["type.cshtml", model];
+      };
+      Get["/type/edit/{id}"] = parameters => {
+        Type SelectedType = Type.Find(parameters.id);
+        System.Console.WriteLine(SelectedType.GetType());
+        return View["edit.cshtml", SelectedType];
+      };
+        Patch["type/edit/{id}"] = parameters => {
+        Type SelectedType = Type.Find(parameters.id);
+        SelectedType.Update(Request.Form["type-name"]);
+        return View["success.cshtml"];
       };
     }
   }

@@ -1,0 +1,10 @@
+<h1>Animal by Type</h1>
+<h2>Edit type: @Model.GetType()</h2>
+<form action="/type/edit/@Model.GetId()" method="post">
+  <input type="hidden" name="_method" value="PATCH">
+  <input name="type-id" type="hidden" value="@Model.GetId()">
+  <label for="type-name">Type name</label>
+  <input name="type-name" type="text">
+  <button type="submit">Submit</button>
+</form>
+<h4><a href="/">Return home</a></h4>
